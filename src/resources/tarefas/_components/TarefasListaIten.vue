@@ -5,18 +5,23 @@
         <button 
             class="btn btn-sm mr-4" 
             :class="classeCSS" 
-            :title="textoBotaoConcluido">
+            :title="textoBotaoConcluido"
+            @click="$emit('concluir', tarefa)">
+      
                 <i class="fa fa-check"></i>
         </button>
+        
         <button 
             class="btn btn-primary btn-sm mr-1" 
             title="Editar"
             @click="$emit('editar', tarefa)">
                 <i class="fa fa-pencil-alt"></i>
         </button>
+
         <button 
             class="btn btn-danger btn-sm" 
-            title="Deletar">
+            title="Deletar"
+             @click="$emit('deletar', tarefa)">
                 <i class="fa fa-trash"></i>
         </button>
     </li>
@@ -24,6 +29,7 @@
 
 <script>
 export default {
+    name: 'TarefasListaIten',
     props: {
         tarefa: {
             type: Object,
@@ -38,18 +44,14 @@ export default {
             }
         },
         textoBotaoConcluido() {
-            return this.tarefa.concluido
-                ? 'Refazer Tarefa'
-                : 'Concluir Tarefa'
+            return this.tarefa.concluido ? 'Refazer Tarefa' : 'Concluir Tarefa'
         }
     }
 }
 </script>
 
 <style scoped>
-
-    .espacar {
-        flex: 1 1 auto;
-    }
-
+.espacar {
+    flex: 1 1 auto;
+}
 </style>

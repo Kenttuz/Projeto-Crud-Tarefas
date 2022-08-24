@@ -1,7 +1,7 @@
 <template>
     <div>
 
-        <h2 class="font-weight-light">Contador: {{ contador }}</h2>
+        <h2 class="font-weight-light">Contador: {{contador }}</h2>
         <h4 class="font-weight-light">Contador Alias: {{ contadorAlias }}</h4>
         <h4 class="font-weight-light">Contador Multiplicado: {{ contadorMultiplicado }}</h4>
         <button class="btn btn-lg btn-danger mr-1" @click="decrementar">-</button>
@@ -11,10 +11,10 @@
 </template>
 
 <script>
-
 import { mapState } from 'vuex'
 
 export default {
+    name: 'AllContador',
     data() {
         return {
             contadorLocal: 2
@@ -22,10 +22,11 @@ export default {
     },
     // computed: mapState(['contador']),
     computed: {
-        ...mapState({
-            // contador: state => state.contador
-            contador: 'contador',
-            contadorAlias: 'contador',
+        //o primeiro argumento é passando o namespaced setado no module do store
+        ...mapState('contador', {
+            contador: state => state.contador,
+            // contador: 'contador',
+            contadorAlias: state => state.contador,
             contadorMultiplicado(state) {
                 return state.contador * this.contadorLocal
             }
@@ -34,12 +35,11 @@ export default {
     },
     methods: {
         decrementar() {
-            this.$store.state.contador--
+            this.$store.state.contador.contador--
         },
         incrementar() {
-            this.$store.state.contador++
+            this.$store.state.contador.contador++
         }
     }
 }
 </script>
-
